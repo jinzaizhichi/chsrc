@@ -6,7 +6,7 @@
  * Contributors  : Mikachu2333 <mikachu.23333@zohomail.com>
  *               |
  * Created On    : <2024-08-09>
- * Last Modified : <2025-08-22>
+ * Last Modified : <2026-02-22>
  * -------------------------------------------------------------
  * 本文件作为一个通用模板：
  *
@@ -71,6 +71,11 @@ void
   chef_set_sauciers (this, 2, "@nulnone", "@someone");
 
   chef_allow_local_mode (this, PartiallyCan, "具体说明是否支持项目级换源...", "Tell users the local mode support");
+
+  chef_set_scope_cap (this, ProjectScope, ScopeCap_Able_And_Implemented);
+  chef_set_scope_cap (this, UserScope,    ScopeCap_Able_But_NotImplemented);
+  chef_set_scope_cap (this, SystemScope,  ScopeCap_Unable);
+  chef_set_default_scope (this, UserScope);
 
   // chef_allow_english(this); // 项目是否支持英文
   chef_deny_english(this);

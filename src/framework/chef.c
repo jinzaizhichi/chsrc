@@ -285,6 +285,63 @@ chef_deny_english (Target_t *target)
 }
 
 
+/**
+ * @brief 设置该 target 的作用域能力
+ */
+void
+chef_set_scope_cap (Target_t *target, Scope_t scope, ScopeCapability_t cap)
+{
+  xy_cant_be_null (target);
+
+  /* 我们在这里固定好索引的位置，而不是直接用 enum 的值，防止以后顺序或者新增枚举值 */
+  if (scope == ProjectScope)
+    {
+      target->scope_caps[0] = cap;
+    }
+  else if (scope == UserScope)
+    {
+      target->scope_caps[1] = cap;
+    }
+  else if (scope == SystemScope)
+    {
+      target->scope_caps[2] = cap;
+    }
+  else
+    {
+      chsrc_panic ("无效的 scope 参数");
+    }
+}
+
+
+/**
+ * @brief 设置该 target 的默认作用域
+ *
+ * @note 该函数必须在 chef_set_scope_cap() 之后调用，以确保默认作用域的能力已经被明确了
+ */
+void
+chef_set_default_scope (Target_t *target, Scope_t scope)
+{
+  xy_cant_be_null (target);
+  target->default_scope = scope;
+
+  ScopeCapability_t cap = ScopeCap_Unknown;
+
+  if (scope == ProjectScope)
+    cap = target->scope_caps[0];
+  else if (scope == UserScope)
+    cap = target->scope_caps[1];
+  else if (scope == SystemScope)
+    cap = target->scope_caps[2];
+
+  /* 防止 chef 们写错 */
+  if (cap != ScopeCap_Able_And_Implemented)
+    {
+      chsrc_panic ("该作用域未被明确支持，无法设置为默认作用域");
+    }
+}
+
+
+
 void
 chef_allow_local_mode (Target_t *target, Capability_t cap, const char *explain_zh, const char *explain_en)
 {
