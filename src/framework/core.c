@@ -1277,6 +1277,62 @@ chsrc_conclude (Source_t *source)
 }
 
 
+/**
+ * @brief 检测该 target 是否实现了用户所指定的 scope 能力
+ *
+ * @note 此函数目前只支持中文
+ */
+void
+chsrc_check_scope_capability (Target_t *target)
+{
+  ScopeCapability_t cap = ScopeCap_Unknown;
+
+  char *msg1 = "不支持";
+  char *msg2 = "换源，请使用 chsrc ls ";
+  char *msg3 = " 查看支持的作用域以及默认作用域";
+
+  char *aliases = target->aliases;
+  char *scope_name = NULL;
+
+  if (chsrc_in_project_scope_mode())
+    {
+      cap = target->scope_caps[ScopeCap_Slot_Project];
+
+      if (cap != ScopeCap_Able_And_Implemented)
+        {
+          scope_name = "项目级";
+          char* msg = xy_strcat (5, msg1, scope_name, msg2, aliases, msg3);
+          chsrc_error (msg);
+          exit (Exit_UserCause);
+        }
+    }
+  if (chsrc_in_user_scope_mode())
+    {
+      cap = target->scope_caps[ScopeCap_Slot_User];
+
+      if (cap != ScopeCap_Able_And_Implemented)
+        {
+          scope_name = "用户级";
+          char* msg = xy_strcat (5, msg1, scope_name, msg2, aliases, msg3);
+          chsrc_error (msg);
+          exit (Exit_UserCause);
+        }
+    }
+  if (chsrc_in_system_scope_mode())
+    {
+      cap = target->scope_caps[ScopeCap_Slot_System];
+
+      if (cap != ScopeCap_Able_And_Implemented)
+        {
+          scope_name = "系统级";
+          char* msg = xy_strcat (5, msg1, scope_name, msg2, aliases, msg3);
+          chsrc_error (msg);
+          exit (Exit_UserCause);
+        }
+    }
+}
+
+
 
 void
 chsrc_ensure_root ()

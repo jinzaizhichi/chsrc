@@ -335,7 +335,7 @@ cli_print_target_features (Target_t *target, const char *input_target_name)
           printf (" %s%s (%s)\n", bdred(NoMark), purple(scope_msg), "是否支持该作用域尚不了解，欢迎贡献");
           break;
         case ScopeCap_Unable:
-          printf (" %s%s (%s)\n", bdred(NoMark), purple(scope_msg), "不支持的作用域");
+          printf (" %s%s (%s)\n", bdred(NoMark), purple(scope_msg), "不支持");
           break;
         case ScopeCap_Able_But_Not_Implemented:
           printf (" %s%s (%s)\n", bdyellow(HalfYesMark), purple(scope_msg), "支持但未实现");
@@ -666,6 +666,8 @@ get_target (const char *input, TargetOp code, char *option)
     {
       if (target->setfn)
         {
+          /* Hook时机: 开始运行前可以在这里进行一些拦截操作 */
+          chsrc_check_scope_capability (target); /* 用户要求设置的作用域，真的能够执行吗？ */
           target->setfn(option);
         }
       else chsrc_error (xy_strcat (3, "暂未对 ", input, " 实现 set 功能，邀您帮助: chsrc issue"));

@@ -108,6 +108,9 @@ typedef enum Scope_t
 Scope_t;
 
 #define NumberOfScopeType 3
+#define ScopeCap_Slot_Project 0
+#define ScopeCap_Slot_User    1
+#define ScopeCap_Slot_System  2
 
 typedef enum ScopeCapability_t
 {
@@ -166,9 +169,7 @@ typedef struct Target_t
 
   /**
    * 各作用域的支持情况
-   * 0: project scope
-   * 1: user scope
-   * 2: system scope
+   * 参考 ScopeCap_Slot_Xxx 的值
    */
   ScopeCapability_t scope_caps[NumberOfScopeType];
   Scope_t default_scope;   /* 默认作用域 */
