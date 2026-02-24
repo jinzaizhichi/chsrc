@@ -4,13 +4,31 @@
 
 def_target(wr_nix, "nix");
 
+/**
+ * 运行时检查到底是哪种安装方式
+ *
+ * https://github.com/RubyMetric/chsrc/issues/337
+ */
+bool
+wr_nix_is_multi_user_installation_mode ()
+{
+  if (xy_file_exist ("/nix/var/nix/daemon-socket/socket"))
+    {
+     return true;
+    }
+  else
+    {
+      return false;
+    }
+}
+
 void
 wr_nix_prelude ()
 {
   chef_prep_this (wr_nix, s);
 
   chef_set_recipe_created_on   (this, "2023-09-26");
-  chef_set_recipe_last_updated (this, "2025-08-09");
+  chef_set_recipe_last_updated (this, "2026-02-24");
   chef_set_sources_last_updated (this, "2025-07-13");
 
   chef_set_chef (this, NULL);
@@ -19,8 +37,16 @@ wr_nix_prelude ()
 
   chef_set_scope_cap (this, ProjectScope, ScopeCap_Unable);
   chef_set_scope_cap (this, UserScope,    ScopeCap_Able_And_Implemented);
-  chef_set_scope_cap (this, SystemScope,  ScopeCap_Unable);
-  chef_set_default_scope (this, UserScope);
+  chef_set_scope_cap (this, SystemScope,  ScopeCap_Able_And_Implemented);
+
+  if (wr_nix_is_multi_user_installation_mode ())
+    {
+      chef_set_default_scope (this, SystemScope);
+    }
+  else
+    {
+      chef_set_default_scope (this, UserScope);
+    }
 
   chef_deny_english(this);
   chef_deny_user_define(this);
@@ -48,6 +74,7 @@ wr_nix_check_cmd ()
  * @consult
  *    1. https://help.mirrors.cernet.edu.cn/nix-channels/
  *    2. https://gitee.com/RubyMetric/chsrc/issues/I83894
+ *    3. https://github.com/RubyMetric/chsrc/issues/337
  */
 void
 wr_nix_setsrc (char *option)
@@ -56,11 +83,25 @@ wr_nix_setsrc (char *option)
 
   chsrc_use_this_source (wr_nix);
 
+  char *user_scope_nix_config = "~/.config/nix/nix.conf";
+  char *system_scope_nix_config = "/etc/nix/nix.conf";
+
+  char *config_file = NULL;
+
+  if (wr_nix_is_multi_user_installation_mode ())
+    {
+      config_file = system_scope_nix_config;
+    }
+  else
+    {
+      config_file = user_scope_nix_config;
+    }
+
   char *cmd = xy_strcat (3, "nix-channel --add ", source.url, "nixpkgs-unstable nixpkgs");
   chsrc_run (cmd, RunOpt_Default);
 
   char *w = xy_strcat (3, "substituters = ", source.url, "store https://cache.nixos.org/");
-  chsrc_append_to_file (w, "~/.config/nix/nix.conf");
+  chsrc_append_to_file (w, config_file);
 
   chsrc_run ("nix-channel --update", RunOpt_Default);
 
