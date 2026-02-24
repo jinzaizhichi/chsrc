@@ -9,8 +9,8 @@ pl_js_yarn_prelude (void)
 {
   chef_prep_this (pl_js_yarn, gsr);
 
-  chef_set_created_on   (this, "2023-09-09");
-  chef_set_last_updated (this, "2025-07-11");
+  chef_set_recipe_created_on   (this, "2023-09-09");
+  chef_set_recipe_last_updated (this, "2025-07-11");
   chef_set_sources_last_updated (this, "2025-07-11");
 
   chef_set_chef (this, NULL);

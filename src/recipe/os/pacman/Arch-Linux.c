@@ -12,8 +12,8 @@ os_arch_prelude ()
 {
   chef_prep_this (os_arch, gs);
 
-  chef_set_created_on   (this, "2023-09-05");
-  chef_set_last_updated (this, "2025-10-30");
+  chef_set_recipe_created_on   (this, "2023-09-05");
+  chef_set_recipe_last_updated (this, "2025-10-30");
   chef_set_sources_last_updated (this, "2025-06-20");
 
   chef_set_chef (this, "@happy-game");
@@ -115,8 +115,8 @@ os_archlinuxcn_prelude ()
 {
   chef_prep_this (os_archlinuxcn, gs);
 
-  chef_set_created_on   (this, "2023-09-05");
-  chef_set_last_updated (this, "2025-09-12");
+  chef_set_recipe_created_on   (this, "2023-09-05");
+  chef_set_recipe_last_updated (this, "2025-09-12");
   chef_set_sources_last_updated (this, "2024-07-03");
 
   chef_set_chef (this, NULL);

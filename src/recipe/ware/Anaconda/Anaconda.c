@@ -11,8 +11,8 @@ wr_anaconda_prelude ()
 {
   chef_prep_this (wr_anaconda, gs);
 
-  chef_set_created_on   (this, "2023-09-10");
-  chef_set_last_updated (this, "2025-08-09");
+  chef_set_recipe_created_on   (this, "2023-09-10");
+  chef_set_recipe_last_updated (this, "2025-08-09");
   chef_set_sources_last_updated (this, "2025-07-14");
 
   chef_set_chef (this, NULL);

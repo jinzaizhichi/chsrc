@@ -61,8 +61,8 @@ void
   // op 可以为 NOOP|s|sr|gsr|gs, 代表支持 Get Set Reset 三种操作
   chef_prep_this (<category>_<target>, op);
 
-  chef_set_created_on   (this, "2024-08-09"); // 文件创建日期
-  chef_set_last_updated (this, "2025-08-12"); // 文件最后一次更新日期
+  chef_set_recipe_created_on   (this, "2024-08-09"); // 文件创建日期
+  chef_set_recipe_last_updated (this, "2025-08-12"); // 文件最后一次更新日期
   chef_set_sources_last_updated (this, "2025-08-11"); // 镜像源最后一次更新日期
 
   chef_set_chef (this, "@ccmywish");                  // recipe 负责人

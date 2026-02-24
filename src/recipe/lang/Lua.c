@@ -16,8 +16,8 @@ pl_lua_prelude ()
 {
   chef_prep_this (pl_lua, gs);
 
-  chef_set_created_on   (this, "2023-09-27");
-  chef_set_last_updated (this, "2025-08-10");
+  chef_set_recipe_created_on   (this, "2023-09-27");
+  chef_set_recipe_last_updated (this, "2025-08-10");
   chef_set_sources_last_updated (this, "2025-08-22");
 
   chef_set_chef (this, NULL);

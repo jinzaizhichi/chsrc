@@ -32,8 +32,8 @@ pl_python_group_prelude (void)
 {
   chef_prep_this (pl_python_group, gsr);
 
-  chef_set_created_on   (this, "2023-09-03");
-  chef_set_last_updated (this, "2025-12-31");
+  chef_set_recipe_created_on   (this, "2023-09-03");
+  chef_set_recipe_last_updated (this, "2025-12-31");
   chef_set_sources_last_updated (this, "2025-09-30");
 
   chef_set_chef (this, "@happy-game");

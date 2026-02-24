@@ -11,8 +11,8 @@ pl_python_rye_prelude (void)
 {
   chef_prep_this (pl_python_rye, gsr);
 
-  chef_set_created_on   (this, "2024-12-06");
-  chef_set_last_updated (this, "2025-08-09");
+  chef_set_recipe_created_on   (this, "2024-12-06");
+  chef_set_recipe_last_updated (this, "2025-08-09");
   chef_set_sources_last_updated (this, "2025-08-09");
 
   chef_set_chef (this, NULL);

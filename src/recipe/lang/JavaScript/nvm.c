@@ -9,8 +9,8 @@ pl_js_nvm_prelude (void)
 {
   chef_prep_this (pl_js_nvm, gsr);
 
-  chef_set_created_on   (this, "2024-09-23");
-  chef_set_last_updated (this, "2025-06-19");
+  chef_set_recipe_created_on   (this, "2024-09-23");
+  chef_set_recipe_last_updated (this, "2025-06-19");
   chef_set_sources_last_updated (this, "2025-06-19");
 
   chef_set_chef (this, NULL);

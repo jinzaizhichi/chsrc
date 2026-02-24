@@ -9,8 +9,8 @@ pl_java_prelude ()
 {
   chef_prep_this (pl_java, gsr);
 
-  chef_set_created_on   (this, "2023-08-31");
-  chef_set_last_updated (this, "2025-08-27");
+  chef_set_recipe_created_on   (this, "2023-08-31");
+  chef_set_recipe_last_updated (this, "2025-08-27");
   chef_set_sources_last_updated (this, "2024-12-18");
 
   chef_set_chef (this, NULL);

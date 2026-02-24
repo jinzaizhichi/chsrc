@@ -16,8 +16,8 @@ pl_js_group_prelude (void)
 {
   chef_prep_this (pl_js_group, gsr);
 
-  chef_set_created_on   (this, "2023-09-09");
-  chef_set_last_updated (this, "2025-07-11");
+  chef_set_recipe_created_on   (this, "2023-09-09");
+  chef_set_recipe_last_updated (this, "2025-07-11");
   chef_set_sources_last_updated (this, "2025-07-11");
 
   chef_set_chef (this, "@happy-game");
@@ -54,8 +54,8 @@ pl_js_nodejs_binary_prelude (void)
 {
   chef_prep_this (pl_js_nodejs_binary, NOOP);
 
-  chef_set_created_on   (this, "2023-09-09");
-  chef_set_last_updated (this, "2025-08-22");
+  chef_set_recipe_created_on   (this, "2023-09-09");
+  chef_set_recipe_last_updated (this, "2025-08-22");
   chef_set_sources_last_updated (this, "2025-07-11");
 
   chef_set_chef (this, NULL);

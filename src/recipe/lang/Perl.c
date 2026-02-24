@@ -9,8 +9,8 @@ pl_perl_prelude ()
 {
   chef_prep_this (pl_perl, gs);
 
-  chef_set_created_on   (this, "2023-09-31");
-  chef_set_last_updated (this, "2025-10-07");
+  chef_set_recipe_created_on   (this, "2023-09-31");
+  chef_set_recipe_last_updated (this, "2025-10-07");
   chef_set_sources_last_updated (this, "2025-10-07");
 
   chef_set_chef     (this, NULL);

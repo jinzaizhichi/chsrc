@@ -9,8 +9,8 @@ pl_python_pdm_prelude (void)
 {
   chef_prep_this (pl_python_pdm, gsr);
 
-  chef_set_created_on   (this, "2024-06-05");
-  chef_set_last_updated (this, "2025-07-11");
+  chef_set_recipe_created_on   (this, "2024-06-05");
+  chef_set_recipe_last_updated (this, "2025-07-11");
   chef_set_sources_last_updated (this, "2025-07-11");
 
   chef_set_chef (this, NULL);

@@ -26,8 +26,8 @@ wr_docker_prelude ()
 {
   chef_prep_this (wr_docker, gs);
 
-  chef_set_created_on   (this, "2024-06-08");
-  chef_set_last_updated (this, "2025-08-09");
+  chef_set_recipe_created_on   (this, "2024-06-08");
+  chef_set_recipe_last_updated (this, "2025-08-09");
   chef_set_sources_last_updated (this, "2025-07-14");
 
   chef_set_chef (this, "@happy-game");

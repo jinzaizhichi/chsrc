@@ -9,8 +9,8 @@ os_termux_prelude ()
 {
   chef_prep_this (os_termux, gsr);
 
-  chef_set_created_on   (this, "2025-03-04");
-  chef_set_last_updated (this, "2026-01-21");
+  chef_set_recipe_created_on   (this, "2025-03-04");
+  chef_set_recipe_last_updated (this, "2026-01-21");
   chef_set_sources_last_updated (this, "2025-03-04");
 
   chef_set_chef (this, NULL);

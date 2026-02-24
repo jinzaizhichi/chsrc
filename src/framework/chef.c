@@ -498,7 +498,7 @@ chef_set_sauciers (Target_t *target, uint32_t count, ...)
 
 
 void
-chef_set_created_on (Target_t *target, char *date)
+chef_set_recipe_created_on (Target_t *target, char *date)
 {
   xy_cant_be_null (target);
   xy_cant_be_null (date);
@@ -508,7 +508,7 @@ chef_set_created_on (Target_t *target, char *date)
 
 
 void
-chef_set_last_updated (Target_t *target, char *date)
+chef_set_recipe_last_updated (Target_t *target, char *date)
 {
   xy_cant_be_null (target);
   xy_cant_be_null (date);
