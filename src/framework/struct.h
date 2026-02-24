@@ -95,11 +95,33 @@ Source_t;
 #define FeedByPrelude NULL
 
 
-
-/* 换源的作用域 */
-typedef enum Scope_t
+/**
+ * 换源的作用域
+ *
+ * 在 chsrc v0.2.4.2 以前，我们一直使用的是 `-local` 这个选项，其含义是启用 *项目级* 换源
+ *
+ * 1. 默认不使用该选项时，含义是 *全局* 换源，
+ *
+ *    全局分为 (1)系统级 (2)用户级
+ *
+ *    大多数第三方配置软件往往默认进行的是 *用户级* 的配置。所以 chsrc 首先将尝试使用 *用户级* 配置
+ *
+ * 2. 若不存在 *用户级* 的配置，chsrc 将采用 *系统级* 的配置
+ *
+ * 3. 最终效果本质由第三方软件决定，如 poetry 默认实现的就是项目级的换源
+ *
+ * 但是后来，我们认为非 -local 时的行为（即默认时）比较模糊，所以我们现在清晰地把作用域指明出来，总共有3种类型的作用：
+ * 分别是 ProjectScope、UserScope 和 SystemScope，分别对应项目级、用户级和系统级的换源配置
+ *
+ * 还有一个叫 DefaultScope 的作用域，它不是一种新类型，而只表示默认作用域，即根据实际情况最佳的作用域。
+ * chsrc 将根据该 target 的实际情况来选择最合适的作用域来进行换源配置。最好的情况下，DefaultScope 是三者之一，
+ * 这也是这里设计的初衷。然而现在有些 recipe 的换源行为，会在某种 Scope 不能够成功时退而求其次地使用另一个 Scope
+ * 来进行换源配置，这时 DefaultScope 就无法用一种作用域单独描述。
+ */
+#define NumberOfScopeType    3
+ typedef enum Scope_t
 {
-  DefaultScope, /* 默认作用域，即根据实际情况最佳的作用域 */
+  DefaultScope, /* 默认作用域，即根据实际情况最佳的作用域，它不是一种类型，只类似一个占位符 */
 
   ProjectScope,
   UserScope,
@@ -107,7 +129,6 @@ typedef enum Scope_t
 }
 Scope_t;
 
-#define NumberOfScopeType 3
 #define ScopeCap_Slot_Project 0
 #define ScopeCap_Slot_User    1
 #define ScopeCap_Slot_System  2
@@ -163,9 +184,6 @@ typedef struct Target_t
 
   bool  can_user_define;    /* 是否支持用户自定义URL来换源 */
   char *can_user_define_explain; /* 用户自定义URL的说明 */
-
-  Capability_t cap_local;  /* 是否支持 local mode */
-  char *cap_local_explain; /* local mode 的说明 */
 
   /**
    * 各作用域的支持情况

@@ -98,23 +98,6 @@ static bool in_dry_run_mode(){return ProgMode.DryRunMode;}
  */
 
 
-/**
- * -local 的含义是启用 *项目级* 换源
- *
- * 每个 target 对 [-local] 的支持情况可使用 | chsrc ls <target> | 来查看
- *
- *
- * 1. 默认不使用该选项时，含义是 *全局* 换源，
- *
- *    全局分为 (1)系统级 (2)用户级
- *
- *    大多数第三方配置软件往往默认进行的是 *用户级* 的配置。所以 chsrc 首先将尝试使用 *用户级* 配置
- *
- * 2. 若不存在 *用户级* 的配置，chsrc 将采用 *系统级* 的配置
- *
- * 3. 最终效果本质由第三方软件决定，如 poetry 默认实现的就是项目级的换源
- */
-
 typedef enum ChgType_t
 {
   ChgType_Auto,

@@ -357,28 +357,6 @@ chef_set_os_scope (Target_t *target)
 }
 
 
-void
-chef_allow_local_mode (Target_t *target, Capability_t cap, const char *explain_zh, const char *explain_en)
-{
-  xy_cant_be_null (target);
-
-  target->cap_local = cap;
-
-  if (cap == FullyCan)
-    {
-      target->cap_local_explain = xy_strdup (CHINESE ? "完全支持项目级换源" : "Supports project-level source switching");
-      return;
-    }
-
-  if (cap == CanNot)
-    {
-      target->cap_local_explain = xy_strdup (CHINESE ? "无法进行项目级换源" : "Unable to perform project-level source switching");
-      return;
-    }
-
-  target->cap_local_explain = xy_strdup (CHINESE ? explain_zh : explain_en);
-}
-
 
 void
 chef_allow_user_define (Target_t *target)
