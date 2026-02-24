@@ -4,7 +4,7 @@
 # Test Authors  : 曾奥然 <ccmywish@qq.com>
 # Contributors  : Nil Null <nil@null.org>
 # Created On    : <2024-06-05>
-# Last Modified : <2025-10-29>
+# Last Modified : <2026-02-24>
 #
 # 测试 chsrc 可执行文件
 # ---------------------------------------------------------------
@@ -153,7 +153,7 @@ like `$CHSRC set ruby first`,          $set_ruby_first,     'chsrc set ruby firs
 like `$CHSRC set ruby`,                $set_ruby,           'chsrc set ruby';
 like `$CHSRC reset ruby`,              $reset_ruby,         'chsrc reset ruby';
 like `$CHSRC set ruby rubychina`,      $set_ruby_rubychina, 'chsrc set ruby rubychina';
-like `$CHSRC set -local ruby first`,   $set_ruby_locally,   'chsrc set -local ruby first';
+like `$CHSRC set -scope=project ruby first`,  $set_ruby_locally,  'chsrc set -scope=project ruby first';
 
 
 done_testing;
