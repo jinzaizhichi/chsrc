@@ -7,7 +7,7 @@
  * Contributors  : @livelycode36
  *               |
  * Created On    : <2023-08-29>
- * Last Modified : <2026-02-22>
+ * Last Modified : <2026-02-24>
  *
  * chsrc struct
  * ------------------------------------------------------------*/
@@ -107,12 +107,14 @@ typedef enum Scope_t
 }
 Scope_t;
 
+#define NumberOfScopeType 3
+
 typedef enum ScopeCapability_t
 {
-  ScopeCap_Unknown,                 /* 未知，缺乏对该 target 的细致了解 */
-  ScopeCap_Unable,                  /* 不支持该作用域 */
-  ScopeCap_Able_But_NotImplemented, /* 支持但chsrc尚未实现 */
-  ScopeCap_Able_And_Implemented     /* 支持且chsrc已经实现 */
+  ScopeCap_Unknown,                  /* 未知，缺乏对该 target 的细致了解 */
+  ScopeCap_Unable,                   /* 不支持该作用域 */
+  ScopeCap_Able_But_Not_Implemented, /* 支持但chsrc尚未实现 */
+  ScopeCap_Able_And_Implemented      /* 支持且chsrc已经实现 */
 }
 ScopeCapability_t;
 
@@ -162,8 +164,14 @@ typedef struct Target_t
   Capability_t cap_local;  /* 是否支持 local mode */
   char *cap_local_explain; /* local mode 的说明 */
 
-  Scope_t default_scope;           /* 默认作用域 */
-  ScopeCapability_t scope_caps[3]; /* 各作用域的支持情况 */
+  /**
+   * 各作用域的支持情况
+   * 0: project scope
+   * 1: user scope
+   * 2: system scope
+   */
+  ScopeCapability_t scope_caps[NumberOfScopeType];
+  Scope_t default_scope;   /* 默认作用域 */
 
   char *note;              /* 备注 */
 
