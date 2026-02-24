@@ -296,15 +296,15 @@ chef_set_scope_cap (Target_t *target, Scope_t scope, ScopeCapability_t cap)
   /* 我们在这里固定好索引的位置，而不是直接用 enum 的值，防止以后顺序或者新增枚举值 */
   if (scope == ProjectScope)
     {
-      target->scope_caps[0] = cap;
+      target->scope_caps[ScopeCap_Slot_Project] = cap;
     }
   else if (scope == UserScope)
     {
-      target->scope_caps[1] = cap;
+      target->scope_caps[ScopeCap_Slot_User] = cap;
     }
   else if (scope == SystemScope)
     {
-      target->scope_caps[2] = cap;
+      target->scope_caps[ScopeCap_Slot_System] = cap;
     }
   else
     {
@@ -327,11 +327,11 @@ chef_set_default_scope (Target_t *target, Scope_t scope)
   ScopeCapability_t cap = ScopeCap_Unknown;
 
   if (scope == ProjectScope)
-    cap = target->scope_caps[0];
+    cap = target->scope_caps[ScopeCap_Slot_Project];
   else if (scope == UserScope)
-    cap = target->scope_caps[1];
+    cap = target->scope_caps[ScopeCap_Slot_User];
   else if (scope == SystemScope)
-    cap = target->scope_caps[2];
+    cap = target->scope_caps[ScopeCap_Slot_System];
 
   /* 防止 chef 们写错 */
   if (cap != ScopeCap_Able_And_Implemented)
