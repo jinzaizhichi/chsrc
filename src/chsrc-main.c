@@ -317,31 +317,37 @@ cli_print_target_features (Target_t *target, const char *input_target_name)
       else if (i == 1)
         {
           scope_name = CHINESE ? " 用户级换源" : " user scope";
-          scope_msg = xy_strcat (3, scope_name, " | chsrc set -scope=user ", input_target_name);
+          scope_msg = xy_strcat (3, scope_name, " | chsrc set -scope=user    ", input_target_name);
         }
       else if (i == 2)
         {
           scope_name = CHINESE ? " 系统级换源" : " system scope";
-          scope_msg = xy_strcat (3, scope_name, " | chsrc set -scope=system ", input_target_name);
+          scope_msg = xy_strcat (3, scope_name, " | chsrc set -scope=system  ", input_target_name);
         }
       else
         {
           xy_unreached();
         }
 
+      char *msg = NULL;
       switch (cap)
         {
         case ScopeCap_Unknown:
-          printf (" %s%s (%s)\n", bdred(NoMark), purple(scope_msg), "是否支持该作用域尚不了解，欢迎贡献");
+          msg = xy_strcat (6, " ", bdred(NoMark), scope_msg, " (", "是否支持该作用域尚不了解，欢迎贡献", ")");
+          puts (msg);
           break;
         case ScopeCap_Unable:
-          printf (" %s%s (%s)\n", bdred(NoMark), purple(scope_msg), "不支持");
+          msg = xy_strcat (6, " ", bdred(NoMark), scope_msg, " (", "不支持", ")");
+          puts (msg);
           break;
         case ScopeCap_Able_But_Not_Implemented:
-          printf (" %s%s (%s)\n", bdyellow(HalfYesMark), purple(scope_msg), "支持但未实现");
+          msg = xy_strcat (6, " ", bdyellow(HalfYesMark), scope_msg, " (", "支持但未实现", ")");
+          puts (msg);
           break;
         case ScopeCap_Able_And_Implemented:
-          printf (" %s%s (%s)\n", bdgreen(YesMark), purple(scope_msg), "支持且已实现");
+          msg = xy_strcat (3, " ", bdgreen(YesMark),
+            purple (xy_strcat (4, scope_msg, " (", "支持且已实现", ")")));
+          puts (msg);
           break;
         default:
           xy_unreached();
@@ -360,11 +366,15 @@ cli_print_target_features (Target_t *target, const char *input_target_name)
       case SystemScope:
         default_scope_name = CHINESE ? "系统级" : "System Scope";
         break;
+      case ImplementationDefinedScope:
+        default_scope_name = CHINESE ? "由实现定义" : "Implementation Defined Scope";
+        break;
       default:
         xy_unreached();
       }
-    print (bdblue (" = "));
-    printf ("默认作用域 | chsrc set -scope=default %s (= %s)\n", input_target_name, default_scope_name);
+    char *msg = xy_strcat (3, bdblue (" = "),
+      purple (xy_strcat (5, "默认作用域 | chsrc set -scope=default ", input_target_name, " (= ", default_scope_name ,")")));
+    puts (msg);
     br();
   }
 
@@ -823,7 +833,7 @@ main (int argc, char const *argv[])
                 }
               else if (xy_streql_ic (scope, "default"))
                 {
-                  ProgMode.Scope = DefaultScope;
+                  ProgMode.Scope = ImplementationDefinedScope;
                 }
               else
                 {

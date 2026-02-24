@@ -332,6 +332,15 @@ chef_set_default_scope (Target_t *target, Scope_t scope)
     cap = target->scope_caps[ScopeCap_Slot_User];
   else if (scope == SystemScope)
     cap = target->scope_caps[ScopeCap_Slot_System];
+  else if (scope == ImplementationDefinedScope)
+    {
+      /* ImplementationDefinedScope 即由 chsrc 根据实际情况来决定，因此我们不对它检查 */
+      return;
+    }
+  else
+    {
+      chsrc_panic ("无效的 scope 参数");
+    }
 
   /* 防止 chef 们写错 */
   if (cap != ScopeCap_Able_And_Implemented)

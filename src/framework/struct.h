@@ -113,19 +113,23 @@ Source_t;
  * 但是后来，我们认为非 -local 时的行为（即默认时）比较模糊，所以我们现在清晰地把作用域指明出来，总共有3种类型的作用：
  * 分别是 ProjectScope、UserScope 和 SystemScope，分别对应项目级、用户级和系统级的换源配置
  *
- * 还有一个叫 DefaultScope 的作用域，它不是一种新类型，而只表示默认作用域，即根据实际情况最佳的作用域。
- * chsrc 将根据该 target 的实际情况来选择最合适的作用域来进行换源配置。最好的情况下，DefaultScope 是三者之一，
+ * 还有一个叫 ImplementationDefinedScope 的作用域，它不是一种新类型，而是表示根据实际情况决定的作用域。
+ * chsrc 将根据该 target 的实际情况来选择最合适的作用域来进行换源配置。最好的情况下，ImplementationDefinedScope 是三者之一，
  * 这也是这里设计的初衷。然而现在有些 recipe 的换源行为，会在某种 Scope 不能够成功时退而求其次地使用另一个 Scope
- * 来进行换源配置，这时 DefaultScope 就无法用一种作用域单独描述。
+ * 来进行换源配置，这时就只能用 ImplementationDefinedScope 来表示。
  */
 #define NumberOfScopeType    3
  typedef enum Scope_t
 {
-  DefaultScope, /* 默认作用域，即根据实际情况最佳的作用域，它不是一种类型，只类似一个占位符 */
-
   ProjectScope,
   UserScope,
   SystemScope,
+
+  /**
+   * 这是 target 默认的作用域，一种特殊的作用域，即根据 target 的实际情况来决定的。
+   * 它不是一种真正的类型，因为最终换源后，用户看到的作用域依然是 ProjectScope、UserScope 或 SystemScope 中的一个
+   */
+  ImplementationDefinedScope,
 }
 Scope_t;
 

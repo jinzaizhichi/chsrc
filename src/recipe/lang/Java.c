@@ -24,7 +24,7 @@ pl_java_prelude ()
    * TODO: 当前实现将首先尝试 SystemScope, 若失败则尝试 UserScope
    * 所以并不是真正意义上的某种 Scope，而是两者的叠加，后续考虑强制执行用户所选择的 Scope 以达到用户期待
    */
-  chef_set_default_scope (this, SystemScope);
+  chef_set_default_scope (this, ImplementationDefinedScope);
 
   chef_deny_english(this);
   chef_allow_user_define(this);
