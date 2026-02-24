@@ -19,7 +19,11 @@ wr_homebrew_prelude ()
   chef_set_cooks (this, 1, "@ccmywish");
   chef_set_sauciers (this, 1, "@Word2VecT");
 
-  chef_allow_local_mode (this, CanNot, NULL, NULL);
+  chef_set_scope_cap (this, ProjectScope, ScopeCap_Unable);
+  chef_set_scope_cap (this, UserScope,    ScopeCap_Able_And_Implemented);
+  chef_set_scope_cap (this, SystemScope,  ScopeCap_Unable);
+  chef_set_default_scope (this, UserScope);
+
   chef_allow_english(this);
   chef_deny_user_define(this);
 
